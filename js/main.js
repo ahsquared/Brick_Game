@@ -56,7 +56,6 @@ $(document).ready(function () {
 					height: height,
 					'WebkitTransform': "rotate(-" + angleDegrees + "deg)"	
 				});
-				aSalmon.brickWall.powerSize(e, d);
 				/*aSalmon.brickWall.powerBall.animateWithCss({
 					opacity: 0
 				}, 500, 'ease-in', function() {
@@ -67,7 +66,9 @@ $(document).ready(function () {
 				});*/
 				aSalmon.brickWall.powerBall.css({
 					left: -200,
-					top: -200
+					top: -200,
+					width: 1,
+					height: 1
 				});
 				aSalmon.brickWall.smashBricks();
 			});
