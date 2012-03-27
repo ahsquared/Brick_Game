@@ -1,40 +1,78 @@
-// change siteName to applicable name for the site
-$(function () {
+$(document).ready(function () {
     aSalmon.brickWall.init();
 });
 
-var aSalmon = {
-    brickWall: {
+	aSalmon.brickWall = {
 		mouseX: 0,
 		mouseYStart: 0,
 		mouseYEnd: 0,
 		currentBrick: 0,
 		currentRow: 0,
 		radiansToDegrees: 360 / (2 * Math.PI),
+		wreckingBallOffset: {
+			x: parseInt($('.wrecking-ball').css('left')),
+			y: parseInt($('.wrecking-ball').css('top'))
+		},
+		powerBall: $('.power-rating'),
+		powerRating: 0,
+		powerSize: function(e, d) {
+			aSalmon.brickWall.powerRating = d.deltaY;
+			var dim = Math.abs(aSalmon.brickWall.powerRating) / 2;
+			aSalmon.brickWall.powerBall[0].style.height = dim + "px";
+			aSalmon.brickWall.powerBall[0].style.width = dim + "px";
+			aSalmon.brickWall.powerBall[0].style.left = aSalmon.brickWall.mouseX - dim/2 + "px";
+			aSalmon.brickWall.powerBall[0].style.top = aSalmon.brickWall.mouseYStart - dim/2 + "px";
+			aSalmon.brickWall.powerBall[0].style.borderRadius = dim + "px";
+		},
         init: function () {
 			aSalmon.brickWall.generateBricks();
-			$('.brick').mousedown(function (e) {
-				aSalmon.brickWall.mouseX = e.pageX - $('.container')[0].offsetLeft;
-				aSalmon.brickWall.mouseYStart = e.pageY - $('.container')[0].offsetTop;
+			$('.brick').drag('init', function(e, d) {
+				console.log(d.startX, d.startY);
+				aSalmon.brickWall.powerBall.css({
+					left: d.startX - $('.container')[0].offsetLeft,
+					top: d.startY - $('.container')[0].offsetTop,
+					opacity: 0.5
+				});
+				aSalmon.brickWall.mouseX = d.startX - $('.container')[0].offsetLeft;
+				aSalmon.brickWall.mouseYStart = d.startY - $('.container')[0].offsetTop;
 				aSalmon.brickWall.currentBrick = this;
 				aSalmon.brickWall.currentRow = $(this).parent();
+				aSalmon.brickWall.powerSize(e, d);
 			});
-			$('.brick').mouseup(function (e) {
-				aSalmon.brickWall.mouseYEnd = e.pageY - $('.container')[0].offsetTop;
-				var angleRadians = Math.atan(aSalmon.brickWall.mouseX / aSalmon.brickWall.mouseYStart)
-				var angleDegrees = angleRadians * aSalmon.brickWall.radiansToDegrees;
-				var height = aSalmon.brickWall.mouseX / Math.sin(angleRadians);
+			$('.brick').drag(function(e, d) {
+				aSalmon.brickWall.powerSize(e, d);	
+			});
+			$('.brick').drag('end', function(e, d) {
+				var angleRadians = Math.atan((aSalmon.brickWall.mouseX - aSalmon.brickWall.wreckingBallOffset.x) / (aSalmon.brickWall.mouseYStart - aSalmon.brickWall.wreckingBallOffset.y));
+				var angleDegrees = Math.floor(angleRadians * aSalmon.brickWall.radiansToDegrees);
+//				alert(e.pageX + ", " + aSalmon.brickWall.wreckingBallOffset.x + ", " + angleRadians + ", " + aSalmon.brickWall.radiansToDegrees);
+				var props = '';
+				for (i in d) {
+					props += i + "\n";
+				}
+				//alert(angleDegrees);
+				var height = (aSalmon.brickWall.mouseX - aSalmon.brickWall.wreckingBallOffset.x) / Math.sin(angleRadians);
 				$('.wrecking-ball').css({
 					height: height,
-					'WebkitTransform': 'rotate(-' + angleDegrees + 'deg)'	
+					'WebkitTransform': "rotate(-" + angleDegrees + "deg)"	
+				});
+				aSalmon.brickWall.powerSize(e, d);
+				/*aSalmon.brickWall.powerBall.animateWithCss({
+					opacity: 0
+				}, 500, 'ease-in', function() {
+					aSalmon.brickWall.powerBall.css({
+						height: 1,
+						width: 1
+					});
+				});*/
+				aSalmon.brickWall.powerBall.css({
+					left: -200,
+					top: -200
 				});
 				aSalmon.brickWall.smashBricks();
 			});
-			$('.brick').click( function (e) {
-				aSalmon.brickWall.smashBricks(e, this);
-			});
 			$('.wrecking-ball')[0].addEventListener("webkitTransitionEnd", function () {
-				$('.wrecking-ball').css({'WebkitTransform': 'rotate(0deg)'});	
+				$('.wrecking-ball').css({'WebkitTransform': 'rotate(45deg)'});	
 			}, true);
 		},
 		generateBricks: function () {
@@ -54,10 +92,10 @@ var aSalmon = {
 		smashBricks: function() {
 			var bIndex = $(aSalmon.brickWall.currentBrick).index();
 			var rIndex = $(aSalmon.brickWall.currentRow).index();
-			var power = aSalmon.brickWall.mouseYEnd - aSalmon.brickWall.mouseYStart;
-			if (power < 50) {
+			//var power = aSalmon.brickWall.mouseYEnd - aSalmon.brickWall.mouseYStart;
+			if (aSalmon.brickWall.powerRating < 50) {
 				var bricks = [-1, 0, 1];
-			} else if (power < 150) {
+			} else if (aSalmon.brickWall.powerRating < 150) {
 				var bricks = [-2, -1, 0, 1, 2];				
 			} else {
 				var bricks = [-3, -2, -1, 0, 1, 2, 3];				
@@ -78,6 +116,5 @@ var aSalmon = {
 			$('.container').blur();
 		}
 			
-    }	
+    };
 
-};

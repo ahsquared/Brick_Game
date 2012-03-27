@@ -308,14 +308,17 @@ td {
    Author: 
    ========================================================================== */
    
-body {}
+body {
+	width: 320px;
+	height: 480px;	
+}
 .wrap {}
 .container {
 	position: relative;
-	margin: 200px auto;
+	margin: 0 auto;
 	width: 320px;
 	height: 480px;
-	--overflow: hidden;
+	overflow: hidden;
 }
 .brick {
 	position: absolute;
@@ -327,34 +330,58 @@ body {}
 	border: 1px solid #fff;
 	z-index: 10;
 }
-/*.wrecking-ball {
+/*
+.wrecking-ball {
 	position: absolute;
-	top: 0;
-	left: -70px;
-	width: 253px;
+	top: -100px;
+	left: -50px;
+	width: 53px;
 	height: 380px;
 	z-index: 100;
 	background: url(../img/wrecking-ball.png) no-repeat top left;
+	background-size: 100% 100%;
 	-webkit-transform-origin: 240px 0;
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transition-duration: 500ms;
 	-webkit-transition-timing-function: ease-in-out;
 	-webkit-transform: rotate(45deg);	
-}*/
+}
+*/
 .wrecking-ball {
 	position: absolute;
-	top:0;
-	left: 0px;
+	top: 0px;
+	left: 10px;
 	width: 5px;
 	height: 380px;
 	z-index: 100;
 	background: #0000ff;
-	opacity: .7;	
+	opacity: 1;	
 	-webkit-transform-origin: 0px 0;
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transition-duration: 500ms;
 	-webkit-transition-timing-function: ease-in-out;
-	-webkit-transform: rotate(0);	
+}
+.wrecking-ball .the-ball {
+	position: absolute;
+	z-index: 101;
+	bottom: 0;
+	left: -20px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	background: #00ff00;
+}
+.power-rating {
+	position: absolute;
+	top: -40px;
+	left: -40px;
+	height: 1px;
+	width: 1px;
+	background: #666;
+	opacity: 0;
+	border: 6px solid rgba(60,60,60,0.5);
+	border-radius: 26px;
+	z-index: 102;
 }
 .ball-animation {
 	-webkit-transform: rotate(-45deg);	
