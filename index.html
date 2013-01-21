@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
@@ -9,27 +9,135 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Brick Game</title>
+    <meta name="viewport" content="width=320, user-scalable = no">
+    <title>Shazam Brick Game</title>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="js/modernizr.js"></script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27114577-3']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+
 </head>
 <body>
     <div class="wrap">
         <div class="container">
-			<div class="wrecking-ball">
-				<div class="the-ball"></div>
-			</div>
-			<div class="power-rating"></div>              
-	    </div>
+            <div id="home">
+                <div id="amex-bar"></div>
+                <div id="intro">
+                    <div id="game-logo"></div>
+                    <div class="not-supported">
+                        <a href="http://www.youtube.com/watch?v=B31bZNw7GuM"><img src="img/not-supported.png" alt="The Impossible Game is not compatible with your browser. Please view on your mobile. See the latest 'Impossible' TVC" /></a>
+                    </div>
+                    <a href="#" class="start-game"></a>
+                    <a href="#" id="how-to-play"></a>
+                </div>
+                <div id="how-to-play-overlay">
+                    <div class="close"></div>
+                    <div id="instructions">
+                        <div class="instructions-img">
+                            Select a spot on the wall and take a swing. You have 3 goes to clear 75% of the blocks, or it's game over. Watch out for the clouds! 
+                            Your wrecking ball won’t have quite the effect you’d expect. Add some impact to your swing. Hit a bomb and clear your wall in a flash. 
+                            Don’t be fooled – these pretty snowflakes will ice your chances if you hit one.
+                        </div>
+                        <div id="dot1"></div>
+                        <div id="dot2"></div>
+                    </div>
+                    <a href="#" class="start-game"></a>
+                </div>
+            </div>
+            <div id="game-level">
+                <div class="dust"></div>
+                <div id="top-bar">
+                    <div id="remaining-lives">
+                        <div id="life1"></div>
+                        <div id="life2"></div>
+                        <div id="life3"></div>
+                    </div>
+                    <div id="bricks-remaining"></div>
+                </div>
+                <div id="the-wall"></div>
+                <div class="wrecking-ball">
+                    <!--                    <div class="blur b1"></div>
+                    <div class="blur b2"></div>
+                    <div class="blur b3"></div>
+                    <div class="blur b4"></div>
+                    <div class="blur b5"></div>
+-->
+                    <div class="broken-ball"></div>
+                </div>
+                <div class="power-rating"></div>
+                <div id="bot-bar">
+                    <div id="level-number"></div>
+                    <a href="#" id="swing"></a>
+                    <div id="timer">30</div>
+                </div>
+            </div>
+            <div id="level-start" class="l-1">
+                <div id="previous-level">
+                    <h2>WELL DONE</h2>
+                    <h3>Level <span id="lvl-num">2</span> <span id="lvl-perc">100</span>% blocks cleared</h3>
+                </div>
+                <h4 id="level">Level <span></span></h4>
+                <a href="#" id="play-btn">PLAY</a>
+            </div>
+            <div id="score-sheet">
+                <h1 id="your-score"></h1>
+                <ul>
+                    <li class="score-lvl-1"><span>0</span></li>
+                    <li class="score-lvl-2"><span>0</span></li>
+                    <li class="score-lvl-3"><span>0</span></li>
+                    <li class="score-lvl-4"><span>0</span></li>
+                    <li class="score-lvl-5"><span>0</span></li>
+                </ul>
+                <h2 class="total"><span class="total-score"></span><span class="pts"></span></h2>
+                <div id="social" class="cf">
+                    <h3>Share to</h3>
+                    <a href="https://twitter.com/share" target="_blank" class="twitter-share-button tw" data-lang="en"></a>
+                    <a href="#" target="_blank" class="fb-share-button fb"></a>
+                    <shareamex fn="share" icons="fb" message="This is a test message"> </shareamex>
+
+                </div>
+                <a href="#" class="play-again-btn">PLAY AGAIN</a>
+                <div class="bars">
+                    <a style="display: none;" href="#" class="black-bar" id="play-again"><span>Download Free Track</span></a>
+                    <a style="display: none;" href="#" class="black-bar" id="view-cardmember-stories"><span>Amazing Service Stories</span></a>
+                    <a style="display: none;" href="http://www.facebook.com/americanexpressaustralia" class="black-bar" id="like-on-fb"><span>Like us on Facebook</span></a>
+                    <a href="https://www369.americanexpress.com/credit-cards/cards.do?path=/australia/credit-cards/product-list" class="black-bar" id="view-all-cards"><span>View all Cards</span></a>
+                </div>
+            </div>
+            <div id="game-over">
+                <div class="game-over"></div>
+                <div class="well-done">Well done! Every level cleared - what an impossibly good score. You deserve a licence in demolition.</div>
+                <div class="bad-luck">Bad luck! You weren't quite on target that time, but don't worry, you can always try again.</div>
+                <h2 class="total"><span class="total-score">0</span> <span class="pts"></span></h2>
+                <!--<a href="#" class="play-again-btn">PLAY AGAIN</a>-->
+                <div class="progress-bar"></div>
+            </div>
+        </div>
     </div>
-    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>      window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+    <script src="js/as.utils.js"></script>
+    <script src="js/jquery.touchswipe.min.js"></script>
+    <script src="js/main.js"></script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>      window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\/script>')</script>
-	<script src="js/jquery.event.drag.min.js"></script>
-    <script defer src="js/as.utils.js"></script>
-    <script defer src="js/main.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            }, 0);
+        });
 
-	
+    </script>
+
 </body>
 </html>
